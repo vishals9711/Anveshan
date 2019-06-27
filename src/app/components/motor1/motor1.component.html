@@ -1,0 +1,54 @@
+<script src="node_modules/chart.js/Chart.min.js"></script>
+<script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+
+
+<div class="container" style="padding-left:250px">
+    <div class="container-50 noTopPadding container-30-right">
+        <div class="floatLeft">
+            <h4 style="color: #FFF;font-weight:400">
+                <br>Compare Devices</h4>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div *ngIf="this.devices !== undefined && this.devices.length > 0" class="container-50 paddingTop">
+        <div class="dashItem" ng-if="$ctrl.regions">
+            
+                <h3 style="color: #FFF;font-weight:400">Live Data Connection {{mqttStatus ? '✅' : '❌'}}</h3>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="padding:15px">
+            <br>
+            <h4 style="align-content: center">Device 1</h4>
+            <br>
+            <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_1_volt">
+            </fusioncharts>
+            <br>
+            <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_1_curr">
+            </fusioncharts>
+            <br>
+            <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VTHD_1_THD">
+            </fusioncharts>
+            <h4>Timestamp: {{var_1_time}}</h4>
+            <h4>Values : {{var_1_interval}}</h4>
+        </div>
+        <div class="col-md-6" style="padding: 15px">
+            <br>
+            <h4 style="align-content: center">Device 2</h4>
+            <br>
+            <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_2_volt">
+            </fusioncharts>
+            <br>
+            <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_2_curr">
+            </fusioncharts>
+            <br>
+            <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VTHD_2_THD">
+            </fusioncharts>
+            <h4>Timestamp: {{var_2_time}}</h4>
+            <h4>Values : {{var_2_interval}}</h4>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,310 @@
+<style>
+    #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #loader {
+        display: block;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #9370DB;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    #loader:before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #BA55D3;
+        -webkit-animation: spin 3s linear infinite;
+        animation: spin 3s linear infinite;
+    }
+
+    #loader:after {
+        content: "";
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #FF00FF;
+        -webkit-animation: spin 1.5s linear infinite;
+        animation: spin 1.5s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<head>
+</head>
+<div class="container-fluid" style="background-image:url(../../../assets/bg.jpg);background-repeat: no-repeat;background-size: cover;">
+    <div class="container" style="padding-left:250px">
+        <div class="container-50 noTopPadding container-30-right">
+            <div class="floatLeft">
+                <h4 style="color: #FFF;">
+                    <br> {{ gotData }} Status Glance
+                    <!-- <button (click)="getDataServer('1')">Button here</button> -->
+                </h4>
+
+
+
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="col-lg-12" style="margin-top: 88px">
+                <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                    <img src="../../../assets/cir.png" class="rounded" style="width:100%">
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="dashItem" ng-if="$ctrl.regions">
+            <div class="dashTitleBar">
+                <h3 style="color: #FFF;">Live Data Connection {{mqttStatus ? '✅' : '❌'}}</h3>
+            </div>
+        </div>
+
+        <!-- <div class="row" style="padding:10px">
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered" style="height: 445px">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Voltage</th>
+                                    <th scope="col">Value</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>Voltage A</td>
+                                <td>{{Data_1_volt_A}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Voltage B</td>
+                                <td>{{Data_1_volt_B}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Voltage C</td>
+                                <td>{{Data_1_volt_C}}</td>
+                            </tr>
+                            <tr>
+                                <td>THD Voltage A</td>
+                                <td>{{Data_1_THD_volt_A}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>THD Voltage B</td>
+                                <td>{{Data_1_THD_volt_B}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>THD Voltage C</td>
+                                <td>{{Data_1_THD_volt_C}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered" style="height: 445px">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Current</th>
+                                    <th scope="col">Value</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>Current A</td>
+                                <td>{{Data_1_curr_A}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Current B</td>
+                                <td>{{Data_1_curr_B}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Current C</td>
+                                <td>{{Data_1_curr_C}}</td>
+                            </tr>
+                            <tr>
+                                <td>Neutral Current</td>
+                                <td>{{Data_1_neu_curr}}</td>
+                            </tr>
+
+                            <tr>
+                                <td>THD Current A</td>
+                                <td>{{Data_1_THD_curr_A}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>THD Current B</td>
+                                <td>{{Data_1_THD_curr_B}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>THD Current C</td>
+                                <td>{{Data_1_THD_curr_C}}</td>
+                            </tr>
+                            <tr>
+                                <td>THD Neutral Current</td>
+                                <td>{{Data_1_THD_neu_curr}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered" style="height: 445px">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Voltage</th>
+                                    <th scope="col">Value</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>Power A</td>
+                                <td>{{Data_1_power_A}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Power B</td>
+                                <td>{{Data_1_power_B}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Power C</td>
+                                <td>{{Data_1_power_C}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="row">
+
+            <br>
+            <br>
+            <div class="container-fluid">
+                <div class="col-lg-12">
+                    <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                        <br>
+                        <br>
+                        <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_A_volt">
+                        </fusioncharts>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="col-lg-12">
+                    <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                        <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_B_volt">
+                        </fusioncharts>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="col-lg-12">
+                    <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                        <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_C_volt">
+                        </fusioncharts>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="col-lg-12">
+                    <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                        <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_A_curr">
+                        </fusioncharts>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="col-lg-12">
+                    <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                        <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_B_curr">
+                        </fusioncharts>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="col-lg-12">
+                    <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                        <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_C_curr">
+                        </fusioncharts>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+        </div>
+    </div>
+
+</div>

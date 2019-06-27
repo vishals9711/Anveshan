@@ -1,0 +1,106 @@
+<header-component></header-component>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+
+<div id="wrapper" class="toggled">
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a base href="/">
+                    <i style="font-size:24px" class="fa"></i>
+                    <strong style="font-weight:400">Dashboard</strong>
+                </a>
+            </li>
+
+            <li class="sidebar-brand">
+                <i style="font-size:24px" class="fa"></i>
+                <strong style="color: #FFF;font-weight:400">Transformers</strong>
+
+            </li>
+
+            <li>
+                <a routerLink="/grida" routerLinkActive="active" style="font-size: 23px">Grid A Incoming</a>
+            </li>
+            <li>
+                <a routerLink="/gridb" routerLinkActive="active" style="font-size: 23px">Grid B Incoming</a>
+            </li>
+            <li>
+                <a routerLink="/gridc" routerLinkActive="active" style="font-size: 23px">Grid C Incoming</a>
+            </li>
+            <li class="sidebar-brand">
+                <i style="font-size:24px" class="fa"></i>
+                <strong style="color: #FFF;font-weight:400">Motors</strong>
+
+            </li>
+
+            <li>
+                <a routerLink="/motor1" routerLinkActive="active" style="font-size: 23px">Drive Motor 1</a>
+            </li>
+            <li>
+                <a routerLink="/motor2" routerLinkActive="active" style="font-size: 23px">Drive Motor 2</a>
+            </li>
+            <li>
+                <a routerLink="/coolfan" routerLinkActive="active" style="font-size: 23px">Cooling Fan</a>
+            </li>
+            <li class="sidebar-brand">
+                <a base href="/wavecap">
+                    <i style="font-size:24px" class="fa"></i>
+                    <strong style="font-weight: 400">Wave Form Capture</strong>
+                </a>
+            </li>
+            <li class="sidebar-brand">
+                <a base href="/zxphase">
+                    <i style="font-size:24px" class="fa"></i>
+                    <strong style="font-weight: 400">ZX PHASE</strong>
+                </a>
+            </li>
+            <li class="sidebar-brand">
+                <a base href="/phase">
+                    <i style="font-size:24px" class="fa"></i>
+                    <strong style="font-weight: 400">Phase Measurement</strong>
+                </a>
+            </li>
+            <li class="sidebar-brand">
+                <a base href="/energy">
+                    <i style="font-size:24px" class="fa"></i>
+                    <strong style="font-weight: 400">Energy Audit</strong>
+                </a>
+            </li>
+            <!-- <li class="sidebar-brand">
+                <a base href="/logging">
+                    <i style="font-size:24px" class="fa"></i>
+                    <strong style="font-weight: 400">Logging</strong>
+                </a>
+            </li> -->
+            <!-- <li class="sidebar-brand">
+                <a base href="/trend">
+                    <i style="font-size:24px" class="fa"></i>
+                    <strong style="font-weight: 400">Trend Analysis</strong>
+                </a>
+            </li> -->
+            <!-- <li class="sidebar-brand">
+                <a base href="/load">
+                    <i style="font-size:24px" class="fa"></i>
+                    <strong style="font-weight: 400">Load Flow Analysis</strong>
+                </a>
+            </li> -->
+
+
+
+        </ul>
+    </div>
+</div>
+
+<div class="content">
+    <div class="mainContent">
+        <!-- Router Outlet -->
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+
+
+
+<script>
+    feather.replace()
+</script>

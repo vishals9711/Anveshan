@@ -1,0 +1,197 @@
+<script src="../../../../node_modules/fusioncharts/fusioncharts.js"></script>
+<script src="../../../../node_modules/fusioncharts/themes/fusioncharts.theme.fint.js"></script>
+
+<div class="container" style="padding-left:250px">
+
+    <div class="clearfix"></div>
+    <div *ngIf="this.devices !== undefined && this.devices.length > 0" class="container-50 paddingTop">
+        <div class="floatRight">
+            <!--<a href="#">Manage Devices</a>-->
+        </div>
+
+        <div class="dashItem" ng-if="$ctrl.regions">
+            <div class="row">
+                <h3 style="color:#FFF">Live Data Connection {{mqttStatus ? '✅' : '❌'}}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding:10px">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered" style="min-height: 445px">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Frequency</th>
+                                <th scope="col">Value</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>Frequency A</td>
+                            <td>{{Data_freq_A}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>Frequency B</td>
+                            <td>{{Data_freq_B}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>Frequency C</td>
+                            <td>{{Data_freq_B}}</td>
+                        </tr>
+                        <tr>
+                            <td>Interval</td>
+                            <td>{{Data_interval}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>Time</td>
+                            <td>{{var_time1}}</td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered" style="min-height: 445px">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Angle</th>
+                                <th scope="col">Value</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>VA/IA Device 2</td>
+                            <td>{{Data_VA_IA_2}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>VB/IB Device 2</td>
+                            <td>{{Data_VB_IB_2}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>VC/IC Device 2</td>
+                            <td>{{Data_VC_IC_2}}</td>
+                        </tr>
+                        <tr>
+                            <td>VA/VB Device 2</td>
+                            <td>{{Data_VA_VB_2}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>VA/VC Device 2</td>
+                            <td>{{Data_VA_VC_2}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>VC/VA Device 2</td>
+                            <td>{{Data_VC_VA_2}}</td>
+                        </tr>
+                        <tr>
+                            <td>IA/IB Device 2</td>
+                            <td>{{Data_IA_IB_2}}</td>
+                        </tr>
+                        <tr>
+                            <td>IB/IC Device 2</td>
+                            <td>{{Data_IB_IC_2}}</td>
+                        </tr>
+                        <tr>
+                            <td>IA/IC Device 2</td>
+                            <td>{{Data_IA_IC_2}}</td>
+                        </tr>
+                        <tr>
+                            <td>Frequency A Device 2</td>
+                            <td>{{Data_freq_A_2}}</td>
+                        </tr>
+                        <tr>
+                            <td>Frequency B Device 2</td>
+                            <td>{{Data_freq_B_2}}</td>
+                        </tr>
+                        <tr>
+                            <td>Frequency C Device 2</td>
+                            <td>{{Data_freq_C_2}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+
+        <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                <ngx-gauge [type]="gaugeType" [value]="Data_VA_IA" [label]="gaugeLabel1" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                    [size]="gaugesize">
+                </ngx-gauge>
+            </div>
+        </div>
+        <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                <ngx-gauge [type]="gaugeType" [value]="Data_VB_IB" [label]="gaugeLabel2" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                    [size]="gaugesize">
+                </ngx-gauge>
+            </div>
+        </div>
+        <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                <ngx-gauge [type]="gaugeType" [value]="Data_VC_IC" [label]="gaugeLabel3" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                    [size]="gaugesize">
+                </ngx-gauge>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                <ngx-gauge [type]="gaugeType" [value]="Data_VA_VB" [label]="gaugeLabel4" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                    [size]="gaugesize">
+                </ngx-gauge>
+            </div>
+        </div>
+        <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                <ngx-gauge [type]="gaugeType" [value]="Data_VA_VC" [label]="gaugeLabel5" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                    [size]="gaugesize">
+                </ngx-gauge>
+            </div>
+        </div>
+        <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                <ngx-gauge [type]="gaugeType" [value]="Data_VC_VA" [label]="gaugeLabel6" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                    [size]="gaugesize">
+                </ngx-gauge>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                <ngx-gauge [type]="gaugeType" [value]="Data_IA_IB" [label]="gaugeLabel7" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                    [size]="gaugesize">
+                </ngx-gauge>
+            </div>
+        </div>
+        <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                <ngx-gauge [type]="gaugeType" [value]="Data_IB_IC" [label]="gaugeLabel8" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                    [size]="gaugesize">
+                </ngx-gauge>
+            </div>
+        </div>
+        <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                <ngx-gauge [type]="gaugeType" [value]="Data_IA_IC" [label]="gaugeLabel9" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                    [size]="gaugesize">
+                </ngx-gauge>
+            </div>
+        </div>
+    </div>
+</div>

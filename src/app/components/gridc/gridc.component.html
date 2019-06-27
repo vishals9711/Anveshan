@@ -1,0 +1,399 @@
+<script type="text/javascript" src="js/fusioncharts.js"></script>
+<script type="text/javascript" src="js/themes/fusioncharts.theme.carbon.js"></script>
+
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 12px;
+    color: #000;
+  }
+</style>
+
+<div class="container" style="padding-left:250px">
+    <div *ngIf="this.devices !== undefined && this.devices.length > 0" class="container-50 paddingTop">
+        <div class="floatRight">
+            <!--<a href="#">Manage Devices</a>-->
+        </div>
+    
+        <div class="dashItem" ng-if="$ctrl.regions">
+            <div class="dashTitleBar">
+                <h3>Live Data Connection{{mqttStatus ? '✅' : '❌'}}</h3>
+            </div>
+    
+            <div class="bx--responsive-table-container" style="width: 100%;" data-responsive-table>
+                <table class="bx--responsive-table bx--responsive-table--static-size" style="width: 100%;" data-table>
+                    <thead class="bx--table-head">
+                        <tr class="bx--table-row">
+                            <th class="bx--table-header">
+                                <span>#</span>
+                            </th>
+    
+                            <th class="bx--table-header bx--table-sort" data-event="sort" (click)="revertSort();">
+                                Device ID
+    
+                                <svg class="bx--table-sort__svg">
+                                    <use *ngIf="orderBy[0] === '-'" xlink:href="/assets/img/carbon-icons.svg#icon--caret--down"></use>
+    
+                                    <use *ngIf="orderBy[0] !== '-'" xlink:href="/assets/img/carbon-icons.svg#icon--caret--up"></use>
+                                </svg>
+                            </th>
+    
+                            <th class="bx--table-header">
+                                RPM
+                            </th>
+    
+                            <th class="bx--table-header">
+                                State
+                            </th>
+    
+                            <th class="bx--table-header">
+                                Last Event
+                            </th>
+    
+                            <th class="bx--table-header">
+                                Auto Refresh
+                            </th>
+                        </tr>
+                    </thead>
+    
+                    <tbody class="bx--table-body">
+                        <tr class="bx--table-row bx--parent-row" data-parent-row *ngFor="let device of devices; let i = index;">
+                            <td>{{(currentPage-1)*limit+(i + 1)}}</td>
+                            <td>{{device.deviceId}}</td>
+                            <td class="align-right">{{device.data !== undefined ? device.data.rpm : "--"}}</td>
+                            <td class="align-right">{{device.data !== undefined ? (device.data.running ? "Running" : "Stopped") : "--"}}</td>
+                            <td class="align-right">{{device.data !== undefined ? (device.data.ts | date:'medium') : "--"}}</td>
+                            <td class="align-right">
+                                <div class="bx--form-item bx--checkbox-wrapper">
+                                    <input id="bx--checkbox-{{i}}" class="bx--checkbox" type="checkbox" value="red" name="checkbox" [(ngModel)]="mqttStatus && liveData[device.deviceId]"
+                                        [disabled]="!mqttStatus" (change)="setLiveData(i, $event.target.checked === true ? true : false);">
+    
+                                    <label for="bx--checkbox-{{i}}" class="bx--checkbox-label">
+                                        <span class="bx--checkbox-appearance">
+                                            <svg class="bx--checkbox-checkmark">
+                                                <use xlink:href="/assets/img/carbon-icons.svg#icon--checkmark"></use>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    
+            <div class="bx--pagination" data-pagination *ngIf="totalDevices > 10">
+                <div class="bx--pagination__left">
+                    <div class="bx--select">
+                        <label for="select-id" class="bx--visually-hidden">Number of items per page</label>
+                        <select id="select-id" class="bx--select-input" [(ngModel)]="limit" (change)="getDevices();" data-items-per-page>
+                            <option class="bx--select-option" value="10" selected>10</option>
+                            <option class="bx--select-option" value="20">20</option>
+                            <option class="bx--select-option" value="30">30</option>
+                            <option class="bx--select-option" value="40">40</option>
+                            <option class="bx--select-option" value="50">50</option>
+                        </select>
+                        <svg class="bx--select__arrow">
+                            <use xlink:href="/carbon-icons/bluemix-icons.svg#icon--caret--down"></use>
+                        </svg>
+                    </div>
+                    <span class="bx--pagination__text">Items per page&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                    <span class="bx--pagination__text">
+                        <span data-displayed-item-range>{{(currentPage-1)*limit+1}}-{{currentPage === totalPages ? totalDevices : sum(limit, (currentPage-1)*limit)}}</span>
+                        of
+                        <span data-total-items>{{totalDevices}}</span> items</span>
+                </div>
+                <div class="bx--pagination__right">
+                    <span class="bx--pagination__text">
+                        <span data-displayed-page-number>{{currentPage}}</span> of
+                        <span data-total-pages>{{totalPages}}</span> {{totalPages > 1 ? 'pages' : 'page'}}
+                    </span>
+    
+                    <button class="bx--pagination__button bx--pagination__button--backward" data-page-backward aria-label="Backward button" (click)="prevPage();"
+                        [disabled]="currentPage === 1">
+                        <svg class="bx--pagination__button-icon">
+                            <use xlink:href="/carbon-icons/bluemix-icons.svg#icon--chevron--left"></use>
+                        </svg>
+                    </button>
+    
+                    <label for="page-number-input" class="bx--visually-hidden">Page number input</label>
+                    <input id="page-number-input" type="text" class="bx--text-input" placeholder="0" [value]="currentPage" disabled data-page-number-input>
+    
+                    <button class="bx--pagination__button bx--pagination__button--forward" data-page-forward aria-label="Forward button" (click)="nextPage();"
+                        [disabled]="limit >= totalDevices || currentPage === totalPages">
+                        <svg class="bx--pagination__button-icon">
+                            <use xlink:href="/carbon-icons/bluemix-icons.svg#icon--chevron--right"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="container-50 noTopPadding container-30-right">
+    <h4 style="color:#FFF">
+      <br>Grid C LV Side</h4>
+  </div>
+  <div class="clearfix"></div>
+  <div *ngIf="this.devices !== undefined && this.devices.length > 0" class="container-50 paddingTop">
+    <div class="floatRight">
+      <!--<a href="#">Manage Devices</a>-->
+    </div>
+
+    <div class="dashItem" ng-if="$ctrl.regions">
+      <div class="row">
+        <h3 style="color:#FFF">Live Data Connection {{mqttStatus ? '✅' : '❌'}}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="padding:10px">
+
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-bordered" style="min-height: 445px">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Voltage</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tr>
+              <td>Voltage A</td>
+              <td>{{Data_1_volt_A}}</td>
+
+            </tr>
+            <tr>
+              <td>Voltage B</td>
+              <td>{{Data_1_volt_B}}</td>
+
+            </tr>
+            <tr>
+              <td>Voltage C</td>
+              <td>{{Data_1_volt_C}}</td>
+            </tr>
+            <tr>
+              <td>THD Voltage A</td>
+              <td>{{Data_1_THD_volt_A}}</td>
+
+            </tr>
+            <tr>
+              <td>THD Voltage B</td>
+              <td>{{Data_1_THD_volt_B}}</td>
+
+            </tr>
+            <tr>
+              <td>THD Voltage C</td>
+              <td>{{Data_1_THD_volt_C}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-bordered" style="min-height: 445px">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Current</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tr>
+              <td>Current A</td>
+              <td>{{Data_1_curr_A}}</td>
+
+            </tr>
+            <tr>
+              <td>Current B</td>
+              <td>{{Data_1_curr_B}}</td>
+
+            </tr>
+            <tr>
+              <td>Current C</td>
+              <td>{{Data_1_curr_C}}</td>
+            </tr>
+            <tr>
+              <td>Neutral Current</td>
+              <td>{{Data_1_neu_curr}}</td>
+            </tr>
+
+            <tr>
+              <td>THD Current A</td>
+              <td>{{Data_1_THD_curr_A}}</td>
+
+            </tr>
+            <tr>
+              <td>THD Current B</td>
+              <td>{{Data_1_THD_curr_B}}</td>
+
+            </tr>
+            <tr>
+              <td>THD Current C</td>
+              <td>{{Data_1_THD_curr_C}}</td>
+            </tr>
+            <tr>
+              <td>THD Neutral Current</td>
+              <td>{{Data_1_THD_neu_curr}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-bordered" style="min-height: 445px">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Power</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tr>
+              <td>Power A</td>
+              <td>{{Data_1_power_A}}</td>
+
+            </tr>
+            <tr>
+              <td>Power B</td>
+              <td>{{Data_1_power_B}}</td>
+
+            </tr>
+            <tr>
+              <td>Power C</td>
+              <td>{{Data_1_power_C}}</td>
+            </tr>
+            <tr>
+              <td>Peak Power A</td>
+              <td>{{Data_1_power_A_max}}</td>
+
+            </tr>
+            <tr>
+              <td>Peak Power B</td>
+              <td>{{Data_1_power_B_max}}</td>
+
+            </tr>
+            <tr>
+              <td>Peak Power C</td>
+              <td>{{Data_1_power_C_max}}</td>
+            </tr>
+            <tr>
+              <td>TimeStamp</td>
+              <td>{{var_time1}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-bordered" style="min-height: 445px">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Physical</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tr>
+              <td>Accelerometer X Axis</td>
+              <td>{{Data_1_acc_x}}</td>
+
+            </tr>
+            <tr>
+              <td>Accelerometer Y Axis</td>
+              <td>{{Data_1_acc_y}}</td>
+
+            </tr>
+            <tr>
+              <td>Accelerometer Z Axis</td>
+              <td>{{Data_1_acc_z}}</td>
+            </tr>
+            <tr>
+              <td>Temperature</td>
+              <td>{{Data_1_temp}}</td>
+
+            </tr>
+            <tr>
+              <td>Oil level</td>
+              <td>{{Data_1_oil_lvl}}</td>
+
+            </tr>
+            <tr>
+              <td>Coolant level</td>
+              <td>{{Data_1_cool_lvl}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <br>
+    <br>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_1_volt">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_1_curr">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_VRMS_neu_curr">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_THD_1_volt">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_THD_1_curr">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_THD_neu_curr">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_power">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type1" [dataFormat]="dataFormat" [dataSource]="dataSource_har_curr">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type1" [dataFormat]="dataFormat" [dataSource]="dataSource_har_volt">
+      </fusioncharts>
+    </div>
+    <br>
+    <br>
+
+  </div>
+</div>

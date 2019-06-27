@@ -1,0 +1,91 @@
+<script src="../../../../node_modules/fusioncharts/fusioncharts.js"></script>
+<script src="../../../../node_modules/fusioncharts/themes/fusioncharts.theme.fint.js"></script>
+
+<div class="container" style="padding-left:250px">
+
+        <div class="clearfix"></div>
+        <div *ngIf="this.devices !== undefined && this.devices.length > 0" class="container-50 paddingTop">
+                <div class="floatRight">
+                        <!--<a href="#">Manage Devices</a>-->
+                </div>
+
+                <div class="dashItem" ng-if="$ctrl.regions">
+                        <div class="row">
+                                <h3 style="color:#FFF">Live Data Connection {{mqttStatus ? '✅' : '❌'}}</h3>
+                        </div>
+                </div>
+        </div>
+
+
+        <div class="row">
+
+
+                <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+                        <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                                <ngx-gauge [type]="gaugeType" [value]="Data_VA_IA" [label]="gaugeLabel1" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                                        [size]="gaugesize">
+                                </ngx-gauge>
+                        </div>
+                </div>
+                <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+                        <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                                <ngx-gauge [type]="gaugeType" [value]="Data_VB_IB" [label]="gaugeLabel2" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                                        [size]="gaugesize">
+                                </ngx-gauge>
+                        </div>
+                </div>
+                <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+                        <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                                <ngx-gauge [type]="gaugeType" [value]="Data_VC_IC" [label]="gaugeLabel3" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                                        [size]="gaugesize">
+                                </ngx-gauge>
+                        </div>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+                        <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                                <ngx-gauge [type]="gaugeType" [value]="Data_VA_VB" [label]="gaugeLabel4" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                                        [size]="gaugesize">
+                                </ngx-gauge>
+                        </div>
+                </div>
+                <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+                        <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                                <ngx-gauge [type]="gaugeType" [value]="Data_VA_VC" [label]="gaugeLabel5" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                                        [size]="gaugesize">
+                                </ngx-gauge>
+                        </div>
+                </div>
+                <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+                        <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                                <ngx-gauge [type]="gaugeType" [value]="Data_VC_VA" [label]="gaugeLabel6" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                                        [size]="gaugesize">
+                                </ngx-gauge>
+                        </div>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+                        <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                                <ngx-gauge [type]="gaugeType" [value]="Data_IA_IB" [label]="gaugeLabel7" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                                        [size]="gaugesize">
+                                </ngx-gauge>
+                        </div>
+                </div>
+                <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+                        <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                                <ngx-gauge [type]="gaugeType" [value]="Data_IB_IC" [label]="gaugeLabel8" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                                        [size]="gaugesize">
+                                </ngx-gauge>
+                        </div>
+                </div>
+                <div class="col-md-3" style="background-color: #FFF; width:33%; padding: 30px" class="rounded">
+                        <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                                <ngx-gauge [type]="gaugeType" [value]="Data_IA_IC" [label]="gaugeLabel9" [append]="gaugeAppendText" [min]="gaugemin" [max]="gaugemax"
+                                        [size]="gaugesize">
+                                </ngx-gauge>
+                        </div>
+                </div>
+        </div>
+</div>

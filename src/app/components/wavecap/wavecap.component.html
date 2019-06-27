@@ -1,0 +1,26 @@
+<script src="C:/IOTdashboard/node_modules/angular/angular.min.js"></script>
+<script src="C:/IOTdashboard/node_modules/chart.js/dist/Chart.min.js"></script>
+<script src="C:/IOTdashboard/node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+
+
+<div class="clearfix"></div>
+<div class="container-fluid" style="padding-left:250px">
+
+    <div *ngIf="this.devices !== undefined && this.devices.length > 0" class="container-50 paddingTop">
+        <div class="floatRight">
+            <!--<a href="#">Manage Devices</a>-->
+        </div>
+
+        <div class="dashItem" ng-if="$ctrl.regions">
+            <div class="dashTitleBar">
+                <h3>Live Data Connection {{mqttStatus ? '✅' : '❌'}}</h3>
+            </div>
+        </div>
+        <div class="container-fluid" class="rounded">
+            <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource">
+            </fusioncharts>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,196 @@
+<script type="text/javascript" src="js/fusioncharts.js"></script>
+<script type="text/javascript" src="js/themes/fusioncharts.theme.carbon.js"></script>
+
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 12px;
+    color: #000;
+  }
+</style>
+
+<div class="container" style="padding-left:250px">
+  <div class="container-50 noTopPadding container-30-right">
+    <h4 style="color:#FFF">
+      <br>Grid B LV Side</h4>
+  </div>
+  <div class="clearfix"></div>
+  <div *ngIf="this.devices !== undefined && this.devices.length > 0" class="container-50 paddingTop">
+    <div class="floatRight">
+      <!--<a href="#">Manage Devices</a>-->
+    </div>
+
+    <div class="dashItem" ng-if="$ctrl.regions">
+      <div class="row">
+        <h3 style="color:#FFF">Live Data Connection {{mqttStatus ? '✅' : '❌'}}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="padding:10px">
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-bordered" style="min-height: 445px">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Power</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tr>
+              <td>Active A</td>
+              <td>{{Data_1_act_A}}</td>
+
+            </tr>
+            <tr>
+              <td>Active B</td>
+              <td>{{Data_1_act_B}}</td>
+
+            </tr>
+            <tr>
+              <td>Active C</td>
+              <td>{{Data_1_act_C}}</td>
+            </tr>
+            <tr>
+              <td>Apparent A</td>
+              <td>{{Data_1_app_A}}</td>
+
+            </tr>
+            <tr>
+              <td>Apparent B</td>
+              <td>{{Data_1_app_B}}</td>
+
+            </tr>
+            <tr>
+              <td>Apparent C</td>
+              <td>{{Data_1_app_C}}</td>
+            </tr>
+            <tr>
+              <td>Reactive A</td>
+              <td>{{Data_1_react_A}}</td>
+
+            </tr>
+            <tr>
+              <td>Reactive B</td>
+              <td>{{Data_1_react_A}}</td>
+
+            </tr>
+            <tr>
+              <td>Reactive C</td>
+              <td>{{Data_1_react_A}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-bordered" style="min-height: 445px">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Energy</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+
+            <tr>
+              <td>Active A</td>
+              <td>{{Data_1_act_eng_A}}</td>
+
+            </tr>
+            <tr>
+              <td>Active B</td>
+              <td>{{Data_1_act_eng_B}}</td>
+
+            </tr>
+            <tr>
+              <td>Active C</td>
+              <td>{{Data_1_act_eng_C}}</td>
+            </tr>
+            <tr>
+              <td>Apparent A</td>
+              <td>{{Data_1_app_eng_A}}</td>
+
+            </tr>
+            <tr>
+              <td>Apparent B</td>
+              <td>{{Data_1_app_eng_B}}</td>
+
+            </tr>
+            <tr>
+              <td>Apparent C</td>
+              <td>{{Data_1_app_eng_C}}</td>
+            </tr>
+            <tr>
+              <td>Reactive A</td>
+              <td>{{Data_1_react_eng_A}}</td>
+
+            </tr>
+            <tr>
+              <td>Reactive B</td>
+              <td>{{Data_1_react_eng_A}}</td>
+
+            </tr>
+            <tr>
+              <td>Reactive C</td>
+              <td>{{Data_1_react_eng_A}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <br>
+    <br>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_active_pwr">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_app_pwr">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_react_pwr">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_act_eng">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_app_eng">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <div class="container-fluid">
+      <fusioncharts [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="dataSource_react_eng">
+      </fusioncharts>
+      <br>
+      <br>
+    </div>
+    <br>
+    <br>
+
+  </div>
+</div>
