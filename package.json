@@ -50,7 +50,7 @@
     "carbon-components": "^7.4.3",
     "carbon-icons": "^6.0.2",
     "cf-deployment-tracker-client": "*",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "cookie-parser": "~1.4.3",
     "core-js": "^2.4.1",
     "debug": "~2.2.0",
