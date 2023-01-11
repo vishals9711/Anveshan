@@ -53,7 +53,7 @@
     "chart.js": "^2.7.2",
     "cookie-parser": "~1.4.3",
     "core-js": "^2.4.1",
-    "debug": "~2.2.0",
+    "debug": "~2.6.9",
     "express": "~4.14.0",
     "font-awesome": "^4.7.0",
     "fusioncharts": "^3.12.2",
